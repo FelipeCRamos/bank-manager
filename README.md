@@ -24,15 +24,16 @@ nu = Bank("Nubank")
 su = Bank("Subank")
 
 # Now, we refer to the banks as `nu` and `su`
-nu.add(25, "Me", "Some bill")	# adds R$ 25 to the Nubank, 
-								# to be payed by "me" and with 
-    							# the description as "some bill"
+
+# adds R$ 25 to the Nubank, to be payed by "me" and with the description as "some bill"
+nu.add(25, "Me", "Some bill")
+
 su.add(19.90, "Him", "He own me")	# adds R$ 19,90 to the Subank
 
 gen_bill(nu)	# Generates Nubank bill and prints out
 gen_bill(su)	# Generates Subank bill and prints out
 
-timestamp()		# Generates a cool timestamp
+timestamp() # Generates a cool timestamp
 ```
 
 Then, your output will look like (by running `python3 example.py` on your terminal):
