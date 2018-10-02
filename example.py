@@ -15,3 +15,4 @@ bb.add(30.00, "My-friend", "Present")
 
 gen_bill(nu)
 gen_bill(bb)
+timestamp()

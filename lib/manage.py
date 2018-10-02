@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-
-tab = '    '
+import datetime as dt
 
 class Bill:
     '''
@@ -49,6 +48,8 @@ class Bank:
 
     def report(self):
         ''' see all bills in a pretty print '''
+        # first, sort the list
+        self.bills_list = sorted(self.bills_list, key = lambda k: k.get_amount(), reverse = True)
         print("@ {}".format(self.bank_name))
         for bill in self.bills_list:
             print('\t', end='')
@@ -86,4 +87,7 @@ def gen_bill(bank):
     for payer in bank.payers():
         print('\t' + "R$ {:7.2f} - {}".format(bank.sum_payer(payer), payer))
     print()
+
+def timestamp():
+    print("Generated on:", dt.datetime.now())
 
