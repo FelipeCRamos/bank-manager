@@ -13,5 +13,5 @@ bb.add(9.90, "Me", "Snacks")
 bb.add(34.99, "My-friend", "UBER")
 bb.add(30.00, "My-friend", "Present")
 
-bill(nu)
-bill(bb)
+gen_bill(nu)
+gen_bill(bb)

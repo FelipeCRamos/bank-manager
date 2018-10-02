@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+tab = '    '
+
 class Bill:
     '''
     This is the class to represent each bill, having the info about:
@@ -15,10 +17,10 @@ class Bill:
 
     def __repr__(self):
         ''' Representation when called direcly '''
-        return 'R$ {:7.2f} - ({}) {}'.format(
-            self.amount, self.payer, self.description)
+        return 'R$ {:7.2f} - {} ({})'.format(
+            self.amount, self.description, self.payer)
 
-    def get_bill(self):
+    def get_amount(self):
         ''' get method for $$ '''
         return self.amount
 
@@ -45,28 +47,26 @@ class Bank:
         b = Bill(bill, payer, description)
         self.bills_list.append(b)
 
-    def see_bills(self):
+    def report(self):
         ''' see all bills in a pretty print '''
-        print("\n" + "-"*80)
-        print("Bank {}".format(self.bank_name))
-        print("-" * 80 + "\n")
+        print("@ {}".format(self.bank_name))
         for bill in self.bills_list:
-            print(" "*3, bill)
-        print("\n" + "-" * 80)
+            print('\t', end='')
+            print(bill)
 
     def sum(self):
         ''' get total bank sum '''
         sum = float()
         for bill in self.bills_list:
-            sum += bill.get_bill()
+            sum += bill.get_amount()
         return sum
 
-    def sum_bills(self, payer):
+    def sum_payer(self, payer):
         ''' get specific payer bank sum '''
         sum = float()
         for bill in self.bills_list:
             if(bill.get_payer() == payer):
-                sum += bill.get_bill()
+                sum += bill.get_amount()
         return sum
 
     def payers(self):
@@ -77,10 +77,13 @@ class Bank:
         set_payers = set(set_payers)
         return set_payers
 
-def bill(bank):
+def gen_bill(bank):
     ''' general function to give a report '''
-    bank.see_bills()
-    print("Total: R$ {:7.2f}".format(bank.sum()))
+    bank.report()
+    print('\t' + "-" * 38)
+    print('\t' + "R$ {:7.2f} - TOTAL".format(bank.sum()))
+    print("\n\t~ DIVIDED TO:")
     for payer in bank.payers():
-        print("\t{} : R$ {:7.2f}".format(payer, bank.sum_bills(payer)))
+        print('\t' + "R$ {:7.2f} - {}".format(bank.sum_payer(payer), payer))
+    print()
 
