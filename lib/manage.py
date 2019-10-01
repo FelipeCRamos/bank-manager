@@ -35,6 +35,7 @@ class Bank:
     def __init__(self, b_name):
         ''' default constructor for creating a new bank (i.e.: Bank("Name")) '''
         self.bank_name = str()
+        self.wallet_list = {}
         self.bills_list = list()
         self.bank_name = b_name
 
@@ -45,7 +46,21 @@ class Bank:
         '''
         b = Bill(bill, payer, description)
         self.bills_list.append(b)
-
+   
+    def insert(self, value, description):
+        '''
+        Add a specific amount of money to the bank account, like:
+        bank.add(1200.0, 'salary')
+        '''
+        if description not in self.wallet_list:
+            self.wallet_list[description] = value
+        else:
+            self.wallet_list[description] += value
+        
+    def get_wallet(self):
+        return self.wallet_list
+        
+   
     def report(self):
         ''' see all bills in a pretty print '''
         # first, sort the list
@@ -79,7 +94,7 @@ class Bank:
         return set_payers
 
 def gen_bill(bank):
-    ''' general function to give a report '''
+    ''' general function to give a bill report '''
     bank.report()
     print('\t' + "-" * 38)
     print('\t' + "R$ {:7.2f} - TOTAL".format(bank.sum()))
@@ -87,6 +102,14 @@ def gen_bill(bank):
     for payer in bank.payers():
         print('\t' + "R$ {:7.2f} - {}".format(bank.sum_payer(payer), payer))
     print()
+    
+def gen_wallet(bank):
+    '''general function to give a wallet report '''
+    print("\t~ AMOUNT IN MY ACCOUNT:")
+    for description, value in bank.get_wallet().items():
+        print('\t' + "R$ {:7.2f} - {}".format(value, description))
+    print()
+    
 
 def timestamp():
     print("Generated on:", dt.datetime.now())
